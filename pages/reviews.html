@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Отзывы клиентов о СнабПромГрупп">
+  <meta name="keywords" content="отзывы, резинотехника, рукава, асбест, паронит">
+  <title>Отзывы - СнабПромГрупп</title>
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/responsive.css">
+  <link rel="icon" href="/public/favicon.ico">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">СнабПромГрупп</div>
+      <div class="hamburger">☰</div>
+      <ul class="nav-menu">
+        <li><a href="/pages/index.html">Главная</a></li>
+        <li><a href="/pages/category.html?cat=rubber">Резинотехника</a></li>
+        <li><a href="/pages/category.html?cat=sleeves">Рукава</a></li>
+        <li><a href="/pages/category.html?cat=asbestos">Асбест</a></li>
+        <li><a href="/pages/category.html?cat=paronite">Паронит</a></li>
+        <li><a href="/pages/cart.html">Корзина</a></li>
+        <li><a href="/pages/about.html">О нас</a></li>
+        <li><a href="/pages/reviews.html">Отзывы</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="reviews">
+      <h1>Отзывы наших клиентов</h1>
+      <div class="review-carousel">
+        <!-- Populated by review-carousel.js -->
+      </div>
+      <h2>Оставить отзыв</h2>
+      <form id="review-form">
+        <input type="text" name="author" placeholder="Ваше имя" required>
+        <textarea name="text" placeholder="Ваш отзыв" required></textarea>
+        <button type="submit">Отправить</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://wa.me/1234567890" target="_blank">WhatsApp</a>
+    <a href="https://t.me/your-bot-username" target="_blank">Telegram</a>
+  </footer>
+
+  <script src="/components/nav.js"></script>
+  <script src="/components/review-carousel.js"></script>
+  <script src="/components/review-form.js"></script>
+</body>
+</html>
