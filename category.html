@@ -3,18 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Категория товаров</title>
+  <meta name="description" content="Каталог товаров СнабПромГрупп - резинотехника, рукава, асбест, паронит">
+  <meta name="keywords" content="резинотехника, рукава, асбест, паронит">
+  <title>Категория товаров - СнабПромГрупп</title>
   <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/responsive.css">
+  <link rel="icon" href="/public/favicon.ico">
 </head>
 <body>
   <header>
-    <!-- Same nav as index.html -->
+    <nav class="navbar">
+      <div class="logo">СнабПромГрупп</div>
+      <div class="hamburger">☰</div>
+      <ul class="nav-menu">
+        <li><a href="/pages/index.html">Главная</a></li>
+        <li><a href="/pages/category.html?cat=rubber">Резинотехника</a></li>
+        <li><a href="/pages/category.html?cat=sleeves">Рукава</a></li>
+        <li><a href="/pages/category.html?cat=asbestos">Асбест</a></li>
+        <li><a href="/pages/category.html?cat=paronite">Паронит</a></li>
+        <li><a href="/pages/cart.html">Корзина</a></li>
+        <li><a href="/pages/about.html">О нас</a></li>
+        <li><a href="/pages/reviews.html">Отзывы</a></li>
+      </ul>
+    </nav>
   </header>
   <main>
     <h1 id="category-title"></h1>
     <div class="product-grid" id="product-grid"></div>
   </main>
+  <footer>
+    <a href="https://wa.me/1234567890" target="_blank">WhatsApp</a>
+    <a href="https://t.me/your-bot-username" target="_blank">Telegram</a>
+  </footer>
   <script src="/components/product-card.js"></script>
+  <script src="/components/nav.js"></script>
   <script>
     const products = {
       rubber: [{ id: 1, name: "Резина 1", price: 100, img: "/assets/placeholders/rubber.jpg" }],
