@@ -1,0 +1,12 @@
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+.navbar { display: flex; justify-content: space-between; padding: 1rem; }
+.nav-menu { display: flex; list-style: none; gap: 1rem; }
+.hamburger { display: none; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.product-card { width: 200px; border: 1px solid #ddd; padding: 1rem; }
+.notification { position: fixed; top: 20px; right: 20px; background: #28a745; color: white; padding: 1rem; }
+@media (max-width: 768px) {
+  .hamburger { display: block; }
+  .nav-menu { display: none; }
+  .nav-menu.active { display: block; }
+}
