@@ -1,0 +1,7 @@
+Create backup archive of the entire website's source code and configuration
+
+Packages the website source code into a single archive file, excluding node_modules.
+
+Replit-Commit-Author: Agent
+Replit-Commit-Session-Id: 20ad9439-6d66-4d00-9121-22c0e72db75c
+Replit-Commit-Screenshot-Url: https://storage.googleapis.com/screenshot-production-us-central1/10efdd37-c105-4b11-af37-074b6a90eff8/20ad9439-6d66-4d00-9121-22c0e72db75c/9U0AcA2
