@@ -1,0 +1,20 @@
+<template id="cart-modal-tpl">
+  <div class="cart-modal-overlay" id="cart-modal">
+    <div class="cart-modal">
+      <button class="close-modal" id="close-cart">×</button>
+      <h2>Ваша корзина</h2>
+      <div class="cart-items" id="cart-items"></div>
+      <div class="cart-total">
+        <span>Итого:</span><span id="cart-total-sum">0 руб.</span>
+      </div>
+      <form id="order-form" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Имя" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" placeholder="Телефон" required>
+        <textarea name="comment" placeholder="Комментарий"></textarea>
+        <input type="file" name="file" accept=".pdf,.doc,.jpg,.png" >
+        <button type="submit">Отправить заказ</button>
+      </form>
+    </div>
+  </div>
+</template>

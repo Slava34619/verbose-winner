@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ПромТехСнаб | Главная</title>
+  <meta name="description" content="Интернет-каталог средств ИЗ и технических материалов">
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <!-- header -->
+  <div id="header-placeholder"></div>
+
+  <!-- Hero Banner -->
+  <section class="hero">
+    <h1>Добро пожаловать в ПромТехСнаб</h1>
+    <p>Широкий ассортимент: РТИ, рукава, асбест, паронит</p>
+    <div class="hero-links">
+      <a href="/categories/rti.html">Резинотехнические изделия</a>
+      <a href="/categories/hoses.html">Рукава</a>
+      <a href="/categories/asbestos.html">Асбест</a>
+      <a href="/categories/paronite.html">Паронит</a>
+    </div>
+  </section>
+
+  <!-- About us -->
+  <section class="about">
+    <h2>О нас</h2>
+    <p>Мы поставляем защитные материалы с 2010 года.</p>
+    <div class="team">
+      <img src="/assets/images/worker1.jpg" alt="Сотрудник">
+      <img src="/assets/images/worker2.jpg" alt="Сотрудник">
+      <img src="/assets/images/worker3.jpg" alt="Сотрудник">
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <div id="reviews-placeholder"></div>
+
+  <!-- footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- cart modal -->
+  <div id="cart-modal-placeholder"></div>
+
+  <script src="/utils/cart.js"></script>
+  <script src="/utils/validation.js"></script>
+  <script src="/utils/api.js"></script>
+  <script>
+    // Загрузка компонентов
+    async function loadTpl(id, target) {
+      const resp = await fetch(`/components/${id}.html`);
+      const html = await resp.text();
+      document.querySelector(target).innerHTML = html;
+    }
+    loadTpl('header', '#header-placeholder');
+    loadTpl('footer', '#footer-placeholder');
+    loadTpl('cart-modal', '#cart-modal-placeholder');
+    loadTpl('review-carousel', '#reviews-placeholder');
+    // Инициализация корзины и карусели отзывов
+    cart.init('#cart-icon', '#cart-modal');
+    reviews.init('#rev-track');
+  </script>
+</body>
+</html>
