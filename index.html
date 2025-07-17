@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnabPromGroup - Каталог резинотехнических изделий</title>
+    <meta name="description" content="Официальный каталог SnabPromGroup - широкий ассортимент резинотехнических изделий, рукавов, асбеста и паронита. Доставка по всей России.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .notification {
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .notification.show {
+            transform: translateY(0);
+        }
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .cart-item-enter {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        .cart-item-enter-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: all 300ms ease;
+        }
+        .cart-item-exit {
+            opacity: 1;
+        }
+        .cart-item-exit-active {
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 300ms ease;
+        }
+        .hamburger-menu {
+            transition: all 0.3s ease;
+        }
+        .hamburger-menu.active .line-1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger-menu.active .line-2 {
+            opacity: 0;
+        }
+        .hamburger-menu.active .line-3 {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        .testimonial-carousel {
+            scroll-snap-type: x mandatory;
+        }
+        .testimonial-slide {
+            scroll-snap-align: start;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Notification -->
+    <div id="notification" class="notification fixed bottom-0 right-0 mb-4 mr-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg hidden">
+        <div class="flex items-center">
+            <span id="notification-text">Товар добавлен в корзину</span>
+            <span id="cart-count" class="ml-2 bg-white text-green-500 rounded-full w-6 h-6 flex items-center justify-center font-bold"></span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="#" class="text-2xl font-bold text-blue-600">SnabProm<span class="text-orange-500">Group</span></a>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-700 hover:text-blue-600 font-medium">Главная</a>
+                <a href="#products" class="text-gray-700 hover:text-blue-600 font-medium">Каталог</a>
+                <a href="#about" class="text-gray-700 hover:text-blue-600 font-medium">О нас</a>
+                <a href="#reviews" class="text-gray-700 hover:text-blue-600 font-medium">Отзывы</a>
+                <a href="#contacts" class="text-gray-700 hover:text-blue-600 font-medium">Контакты</a>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="hamburger-menu flex flex-col justify-center items-center">
+                    <span class="line-1 block w-6 h-0.5 bg-gray-700 mb-1.5 transition-transform"></span>
+                    <span class="line-2 block w-6 h-0.5 bg-gray-700 mb-1.5 transition-opacity"></span>
+                    <span class="line-3 block w-6 h-0.5 bg-gray-700 transition-transform"></span>
+                </button>
+            </div>
+            
+            <!-- Cart Icon -->
+            <div class="relative ml-4">
+                <button id="cart-button" class="text-gray-700 hover:text-blue-600">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-white border-t">
+            <div class="container mx-auto px-4 py-2 flex flex-col">
+                <a href="#home" class="py-2 text-gray-700 hover:text-blue-600">Главная</a>
+                <a href="#products" class="py-2 text-gray-700 hover:text-blue-600">Каталог</a>
+                <a href="#about" class="py-2 text-gray-700 hover:text-blue-600">О нас</a>
+                <a href="#reviews" class="py-2 text-gray-700 hover:text-blue-600">Отзывы</a>
+                <a href="#contacts" class="py-2 text-gray-700 hover:text-blue-600">Контакты</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 md:py-24">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Качественные резинотехнические изделия</h1>
+                <p class="text-xl mb-6">Широкий ассортимент продукции для промышленных нужд с доставкой по всей России</p>
+                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                    <a href="#products" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg text-center transition">Каталог товаров</a>
+                    <a href="#contacts" class="bg-transparent hover:bg-blue-700 text-white font-bold py-3 px-6 border border-white rounded-lg text-center transition">Консультация</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://images.unsplash.com/photo-1581093450021-3a0d240476e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Промышленные изделия" class="rounded-lg shadow-xl w-full max-w-md">
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="products" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Каталог продукции</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <a href="#rubber" class="category-card bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <div class="h-48 bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-boxes text-6xl text-blue-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Резинотехнические изделия</h3>
+                        <p class="text-gray-600">Широкий ассортимент продукции для различных отраслей промышленности</p>
+                    </div>
+                </a>
+                
+                <a href="#hoses" class="category-card bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <div class="h-48 bg-green-100 flex items-center justify-center">
+                        <i class="fas fa-hose text-6xl text-green-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Рукава</h3>
+                        <p class="text-gray-600">Качественные рукава для различных сред и условий эксплуатации</p>
+                    </div>
+                </a>
+                
+                <a href="#asbestos" class="category-card bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <div class="h-48 bg-yellow-100 flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-6xl text-yellow-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Асбест</h3>
+                        <p class="text-gray-600">Огнеупорные и теплоизоляционные материалы</p>
+                    </div>
+                </a>
+                
+                <a href="#paronite" class="category-card bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <div class="h-48 bg-red-100 flex items-center justify-center">
+                        <i class="fas fa-layer-group text-6xl text-red-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Паронит</h3>
+                        <p class="text-gray-600">Прокладочные материалы для герметизации соединений</p>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Rubber Products -->
+            <div id="rubber" class="mb-16">
+                <h3 class="text-2xl font-bold mb-6 border-b pb-2">Резинотехнические изделия</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Product 1 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Резиновая прокладка" class="h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2">Резиновая прокладка 50x50x5 мм</h4>
+                            <p class="text-gray-600 mb-4">Универсальная прокладка для герметизации соединений</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold">450 ₽</span>
+                                <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition" data-id="1" data-name="Резиновая прокладка 50x50x5 мм" data-price="450">
+                                    Добавить в корзину
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1585771724684-382ae0b75583?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Резиновый коврик" class="h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2">Резиновый коврик 1000x500x10 мм</h4>
+                            <p class="text-gray-600 mb-4">Антискользящее покрытие для промышленных помещений</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold">1 250 ₽</span>
+                                <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition" data-id="2" data-name="Резиновый коврик 1000x500x10 мм" data-price="1250">
+                                    Добавить в корзину
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Резиновый уплотнитель" class="h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2">Резиновый уплотнитель D-образный</h4>
+                            <p class="text-gray-600 mb-4">Уплотнитель для дверей и окон, длина 1 м</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold">320 ₽</span>
+                                <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition" data-id="3" data-name="Резиновый уплотнитель D-образный" data-price="320">
+                                    Добавить в корзину
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hoses Products -->
+            <div id="hoses" class="mb-16">
+                <h3 class="text-2xl font-bold mb-6 border-b pb-2">Рукава</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Product 1 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Напорный рукав" class="h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2">Напорный рукав DN50, 10 атм</h4>
+                            <p class="text-gray-600 mb-4">Для воды и нейтральных жидкостей, длина 10 м</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold">2 800 ₽</span>
+                                <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition" data-id="4" data-name="Напорный рукав DN50, 10 атм" data-price="2800">
+                                    Добавить в корзину
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Бензостойкий рукав" class="h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2">Бензостойкий рукав DN32, 6 атм</h4>
+                            <p class="text-gray-600 mb-4">Для топлива и масляных жидкостей, длина 5 м</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold">1 950 ₽</span>
+                                <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition" data-id="5" data-name="Бензостойкий рукав DN32, 6 атм" data-price="1950">
+                                    Добавить в корзину
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Термостойкий рукав" class="h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2">Термостойкий рукав DN40, 150°C</h4>
+                            <p class="text-gray-600 mb-4">Для горячих сред и пара, длина 3 м</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold">3 200 ₽</span>
+                                <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition" data-id="6" data-name="Термостойкий рукав DN40, 150°C" data-price="3200">
+                                    Добавить в корзину
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Asbestos Products -->
+            <div id="asbestos" class="mb-16">
+                <h3 class="text-2xl font-bold mb-6 border-b pb-2">Асбест</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Product 1 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Асбестовый лист" class="h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2">Асбестовый лист 1000x1000x6 мм</h4>
+                            <p class="text-gray-600 mb-4">Огнеупорный материал для промышленного применения</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold">1 800 ₽</span>
+                                <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition" data-id="7" data-name="Асбестовый лист 1000x1000x6 мм" data-price="1800">
+                                    Добавить в корзину
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Асбестовая ткань" class="h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2">Асбестовая ткань 1 кв.м</h4>
+                            <p class="text-gray-600 mb-4">Термостойкая ткань для изоляции и защиты</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold">950 ₽</span>
+                                <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition" data-id="8" data-name="Асбестовая ткань 1 кв.м" data-price="950">
+                                    Добавить в корзину
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Асбестовый шнур" class="h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2">Асбестовый шнур Ø10 мм, 10 м</h4>
+                            <p class="text-gray-600 mb-4">Для уплотнения и изоляции высокотемпературных соединений</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold">1 200 ₽</span>
+                                <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition" data-id="9" data-name="Асбестовый шнур Ø10 мм, 10 м" data-price="1200">
+                                    Добавить в корзину
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Paronite Products -->
+            <div id="paronite" class="mb-16">
+                <h3 class="text-2xl font-bold mb-6 border-b pb-2">Паронит</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Product 1 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Паронит ПОН-А" class="h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2">Паронит ПОН-А 1000x1000x2 мм</h4>
+                            <p class="text-gray-600 mb-4">Универсальный прокладочный материал</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold">2 100 ₽</span>
+                                <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition" data-id="10" data-name="Паронит ПОН-А 1000x1000x2 мм" data-price="2100">
+                                    Добавить в корзину
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Паронит МБ" class="h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2">Паронит МБ 500x500x3 мм</h4>
+                            <p class="text-gray-600 mb-4">Для масляных и топливных систем</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold">1 500 ₽</span>
+                                <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition" data-id="11" data-name="Паронит МБ 500x500x3 мм" data-price="1500">
+                                    Добавить в корзину
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Паронит ТОС" class="h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold mb-2">Паронит ТОС 300x300x1.5 мм</h4>
+                            <p class="text-gray-600 mb-4">Для особо ответственных соединений</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold">1 800 ₽</span>
+                                <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition" data-id="12" data-name="Паронит ТОС 300x300x1.5 мм" data-price="1800">
+                                    Добавить в корзину
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">О компании SnabPromGroup</h2>
+            
+            <div class="flex flex-col lg:flex-row items-center mb-12">
+                <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pr-8">
+                    <h3 class="text-2xl font-bold mb-4">Наша миссия</h3>
+                    <p class="text-gray-700 mb-4">Мы обеспечиваем промышленные предприятия качественными резинотехническими изделиями и материалами уже более 15 лет. Наша цель - стать надежным партнером для вашего бизнеса.</p>
+                    <p class="text-gray-700">Собственное производство, строгий контроль качества и индивидуальный подход к каждому клиенту - вот что отличает нас от конкурентов.</p>
+                </div>
+                <div class="lg:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1552664730-d306ca4e3f44?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Наше производство" class="rounded-lg shadow-lg w-full">
+                </div>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-center mb-8">Наша команда</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden text-center p-6">
+                    <div class="w-32 h-32 mx-auto rounded-full overflow-hidden mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Иван Петров" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-xl font-bold mb-1">Иван Петров</h4>
+                    <p class="text-blue-600 mb-2">Технический директор</p>
+                    <p class="text-gray-600">Опыт работы в отрасли - 18 лет</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md overflow-hidden text-center p-6">
+                    <div class="w-32 h-32 mx-auto rounded-full overflow-hidden mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Елена Смирнова" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-xl font-bold mb-1">Елена Смирнова</h4>
+                    <p class="text-blue-600 mb-2">Менеджер по продажам</p>
+                    <p class="text-gray-600">Работает с нами с 2015 года</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md overflow-hidden text-center p-6">
+                    <div class="w-32 h-32 mx-auto rounded-full overflow-hidden mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Алексей Козлов" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-xl font-bold mb-1">Алексей Козлов</h4>
+                    <p class="text-blue-600 mb-2">Главный инженер</p>
+                    <p class="text-gray-600">Специалист по контролю качества</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md overflow-hidden text-center p-6">
+                    <div class="w-32 h-32 mx-auto rounded-full overflow-hidden mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ольга Иванова" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-xl font-bold mb-1">Ольга Иванова</h4>
+                    <p class="text-blue-600 mb-2">Логист</p>
+                    <p class="text-gray-600">Организует доставку по всей России</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Отзывы наших клиентов</h2>
+            
+            <div class="relative">
+                <div class="testimonial-carousel flex overflow-x-auto pb-8 scrollbar-hide">
+                    <div class="testimonial-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
+                        <div class="bg-gray-100 rounded-lg p-6 h-full">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Дмитрий С." class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Дмитрий С.</h4>
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">"Заказывали резинотехнические изделия для нашего завода. Качество продукции на высоте, доставка быстрая. Особенно порадовало внимание менеджера Елены, которая оперативно отвечала на все вопросы."</p>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
+                        <div class="bg-gray-100 rounded-lg p-6 h-full">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Анна К." class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Анна К.</h4>
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">"Работаем с SnabPromGroup уже третий год. Всегда получаем именно то, что заказывали, в срок и без нареканий. Цены адекватные, качество стабильное. Рекомендую как надежного поставщика."</p>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
+                        <div class="bg-gray-100 rounded-lg p-6 h-full">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Сергей М." class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Сергей М.</h4>
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">"Приобрели партию паронита для ремонта оборудования. Материал соответствует заявленным характеристикам. Доставили даже быстрее, чем обещали. Обслуживание на уровне, будем сотрудничать дальше."</p>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
+                        <div class="bg-gray-100 rounded-lg p-6 h-full">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="https://randomuser.me/api/portraits/women/55.jpg" alt="Екатерина В." class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Екатерина В.</h4>
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">"Очень довольна сотрудничеством! Заказывали асбестовые листы, пришли идеального качества, упакованы надежно. Менеджер Алексей помог подобрать оптимальный вариант под наши нужды. Спасибо!"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
+                        <div class="bg-gray-100 rounded-lg p-6 h-full">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Андрей Л." class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Андрей Л.</h4>
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">"Брали рукава для нашего производства. Качество на высоте, срок службы соответствует заявленному. Доставили точно в срок, даже немного раньше. Цены приятно удивили - ниже, чем у конкурентов."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button id="add-review-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition">Оставить отзыв</button>
+            </div>
+            
+            <!-- Review Form (hidden by default) -->
+            <div id="review-form" class="hidden mt-8 max-w-2xl mx-auto bg-gray-100 p-6 rounded-lg">
+                <h3 class="text-xl font-bold mb-4">Оставьте свой отзыв</h3>
+                <form id="reviewForm">
+                    <div class="mb-4">
+                        <label for="review-name" class="block text-gray-700 mb-2">Ваше имя</label>
+                        <input type="text" id="review-name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="review-email" class="block text-gray-700 mb-2">Email (необязательно)</label>
+                        <input type="email" id="review-email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Оценка</label>
+                        <div class="flex">
+                            <div class="rating">
+                                <input type="radio" id="star5" name="rating" value="5" class="hidden" />
+                                <label for="star5" class="text-2xl text-gray-400 cursor-pointer">★</label>
+                                <input type="radio" id="star4" name="rating" value="4" class="hidden" />
+                                <label for="star4" class="text-2xl text-gray-400 cursor-pointer">★</label>
+                                <input type="radio" id="star3" name="rating" value="3" class="hidden" />
+                                <label for="star3" class="text-2xl text-gray-400 cursor-pointer">★</label>
+                                <input type="radio" id="star2" name="rating" value="2" class="hidden" />
+                                <label for="star2" class="text-2xl text-gray-400 cursor-pointer">★</label>
+                                <input type="radio" id="star1" name="rating" value="1" class="hidden" checked />
+                                <label for="star1" class="text-2xl text-gray-400 cursor-pointer">★</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="review-text" class="block text-gray-700 mb-2">Ваш отзыв</label>
+                        <textarea id="review-text" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" id="cancel-review" class="mr-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg transition">Отмена</button>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition">Отправить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacts Section -->
+    <section id="contacts" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Контакты</h2>
+            
+            <div class="flex flex-col lg:flex-row">
+                <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pr-8">
+                    <div class="bg-white rounded-lg shadow-md p-6 h-full">
+                        <h3 class="text-xl font-bold mb-4">Наши контакты</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-blue-600 mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-bold">Адрес:</h4>
+                                    <p class="text-gray-700">г. Москва, ул. Промышленная, д. 15, офис 304</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-phone-alt text-blue-600 mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-bold">Телефон:</h4>
+                                    <p class="text-gray-700">+7 (495) 123-45-67</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-envelope text-blue-600 mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-bold">Email:</h4>
+                                    <p class="text-gray-700">snabpromgroup@mail.ru</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-clock text-blue-600 mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-bold">Режим работы:</h4>
+                                    <p class="text-gray-700">Пн-Пт: 9:00 - 18:00<br>Сб-Вс: выходной</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold mt-8 mb-4">Мы в соцсетях</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-telegram"></i>
+                            </a>
+                            <a href="#" class="bg-green-500 hover:bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="#" class="bg-blue-800 hover:bg-blue-900 text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-vk"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-white rounded-lg shadow-md p-6 h-full">
+                        <h3 class="text-xl font-bold mb-4">Напишите нам</h3>
+                        <form id="contactForm">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label for="contact-name" class="block text-gray-700 mb-2">Ваше имя</label>
+                                    <input type="text" id="contact-name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                </div>
+                                <div>
+                                    <label for="contact-phone" class="block text-gray-700 mb-2">Телефон</label>
+                                    <input type="tel" id="contact-phone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="contact-email" class="block text-gray-700 mb-2">Email</label>
+                                <input type="email" id="contact-email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="contact-message" class="block text-gray-700 mb-2">Сообщение</label>
+                                <textarea id="contact-message" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                            </div>
+                            <div class="flex justify-end">
+                                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition">Отправить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="text-2xl font-bold text-white">SnabProm<span class="text-orange-500">Group</span></a>
+                    <p class="text-gray-400 mt-2">Качественные резинотехнические изделия с 2008 года</p>
+                </div>
+                <div class="flex flex-col md:flex-row md:space-x-8 space-y-2 md:space-y-0 text-center md:text-left">
+                    <a href="#home" class="hover:text-orange-400 transition">Главная</a>
+                    <a href="#products" class="hover:text-orange-400 transition">Каталог</a>
+                    <a href="#about" class="hover:text-orange-400 transition">О нас</a>
+                    <a href="#reviews" class="hover:text-orange-400 transition">Отзывы</a>
+                    <a href="#contacts" class="hover:text-orange-400 transition">Контакты</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400">
+                <p>© 2023 SnabPromGroup. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-end hidden">
+        <div class="bg-white w-full max-w-md h-full overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">Корзина</h3>
+                    <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <div id="cart-items" class="mb-6">
+                    <!-- Cart items will be inserted here -->
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-shopping-cart text-4xl mb-4"></i>
+                        <p>Ваша корзина пуста</p>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-200 pt-4 mb-6">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-bold">Итого:</span>
+                        <span id="cart-total" class="font-bold">0 ₽</span>
+                    </div>
+                </div>
+                
+                <form id="order-form">
+                    <h4 class="text-lg font-bold mb-4">Данные для заказа</h4>
+                    
+                    <div class="mb-4">
+                        <label for="order-name" class="block text-gray-700 mb-2">Имя *</label>
+                        <input type="text" id="order-name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="order-email" class="block text-gray-700 mb-2">Email *</label>
+                        <input type="email" id="order-email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="order-phone" class="block text-gray-700 mb-2">Телефон *</label>
+                        <input type="tel" id="order-phone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="order-comment" class="block text-gray-700 mb-2">Комментарий</label>
+                        <textarea id="order-comment" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="order-file" class="block text-gray-700 mb-2">Карточка предприятия (до 15 МБ)</label>
+                        <input type="file" id="order-file" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <p class="text-sm text-gray-500 mt-1">Формат: PDF, DOC, JPG, PNG и др.</p>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition">
+                        Отправить заказ
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenuButton.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                if (mobileMenu.classList.contains('open')) {
+                    mobileMenuButton.classList.remove('active');
+                    mobileMenu.classList.remove('open');
+                }
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Cart functionality
+        let cart = [];
+        const cartButton = document.getElementById('cart-button');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCartButton = document.getElementById('close-cart');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotalElement = document.getElementById('cart-total');
+        const cartBadge = document.getElementById('cart-badge');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notification-text');
+        const cartCount = document.getElementById('cart-count');
+        
+        // Load cart from localStorage
+        if (localStorage.getItem('cart')) {
+            cart = JSON.parse(localStorage.getItem('cart'));
+            updateCartBadge();
+        }
+        
+        // Add to cart buttons
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const productId = button.getAttribute('data-id');
+                const productName = button.getAttribute('data-name');
+                const productPrice = parseFloat(button.getAttribute('data-price'));
+                
+                // Check if product already in cart
+                const existingItem = cart.find(item => item.id === productId);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        quantity: 1
+                    });
+                }
+                
+                // Update localStorage
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Update UI
+                updateCartBadge();
+                showNotification('Товар добавлен в корзину');
+                
+                // Change button text
+                button.textContent = 'В корзине';
+                button.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                button.classList.add('bg-green-500', 'hover:bg-green-600');
+            });
+        });
+        
+        // Toggle cart modal
+        cartButton.addEventListener('click', () => {
+            cartModal.classList.remove('hidden');
+            renderCartItems();
+        });
+        
+        closeCartButton.addEventListener('click', () => {
+            cartModal.classList.add('hidden');
+        });
+        
+        // Close modal when clicking outside
+        cartModal.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.classList.add('hidden');
+            }
+        });
+        
+        // Render cart items
+        function renderCartItems() {
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-shopping-cart text-4xl mb-4"></i>
+                        <p>Ваша корзина пуста</p>
+                    </div>
+                `;
+                cartTotalElement.textContent = '0 ₽';
+                return;
+            }
+            
+            let itemsHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                itemsHTML += `
+                    <div class="cart-item flex justify-between items-center py-4 border-b border-gray-200">
+                        <div class="flex-1">
+                            <h4 class="font-bold">${item.name}</h4>
+                            <p class="text-gray-600">${item.price} ₽/шт</p>
+                        </div>
+                        <div class="flex items-center">
+                            <button class="decrease-quantity w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center" data-id="${item.id}">-</button>
+                            <span class="quantity mx-2 w-8 text-center">${item.quantity}</span>
+                            <button class="increase-quantity w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center" data-id="${item.id}">+</button>
+                        </div>
+                        <div class="ml-4 font-bold w-20 text-right">${itemTotal} ₽</div>
+                        <button class="remove-item ml-4 text-red-500 hover:text-red-700" data-id="${item.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            
+            cartItemsContainer.innerHTML = itemsHTML;
+            cartTotalElement.textContent = `${total} ₽`;
+            
+            // Add event listeners to quantity buttons
+            document.querySelectorAll('.increase-quantity').forEach(button => {
+                button.addEventListener('click', () => {
+                    const productId = button.getAttribute('data-id');
+                    const item = cart.find(item => item.id === productId);
+                    if (item) {
+                        item.quantity += 1;
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        renderCartItems();
+                        updateCartBadge();
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.decrease-quantity').forEach(button => {
+                button.addEventListener('click', () => {
+                    const productId = button.getAttribute('data-id');
+                    const item = cart.find(item => item.id === productId);
+                    if (item && item.quantity > 1) {
+                        item.quantity -= 1;
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        renderCartItems();
+                        updateCartBadge();
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', () => {
+                    const productId = button.getAttribute('data-id');
+                    cart = cart.filter(item => item.id !== productId);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCartItems();
+                    updateCartBadge();
+                    
+                    // Reset add to cart button
+                    const addButton = document.querySelector(`.add-to-cart[data-id="${productId}"]`);
+                    if (addButton) {
+                        addButton.textContent = 'Добавить в корзину';
+                        addButton.classList.remove('bg-green-500', 'hover:bg-green-600');
+                        addButton.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                    }
+                });
+            });
+        }
+        
+        // Update cart badge
+        function updateCartBadge() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (totalItems > 0) {
+                cartBadge.textContent = totalItems;
+                cartBadge.classList.remove('hidden');
+            } else {
+                cartBadge.classList.add('hidden');
+            }
+        }
+        
+        // Show notification
+        function showNotification(message) {
+            notificationText.textContent = message;
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            notification.classList.remove('hidden');
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.classList.add('hidden');
+                }, 300);
+            }, 3000);
+        }
+        
+        // Order form submission
+        const orderForm = document.getElementById('order-form');
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (cart.length === 0) {
+                alert('Ваша корзина пуста');
+                return;
+            }
+            
+            const name = document.getElementById('order-name').value;
+            const email = document.getElementById('order-email').value;
+            const phone = document.getElementById('order-phone').value;
+            const comment = document.getElementById('order-comment').value;
+            const fileInput = document.getElementById('order-file');
+            
+            // Validate form
+            if (!name || !email || !phone) {
+                alert('Пожалуйста, заполните все обязательные поля');
+                return;
+            }
+            
+            // Prepare order data
+            const orderData = {
+                name,
+                email,
+                phone,
+                comment,
+                items: cart,
+                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                date: new Date().toISOString()
+            };
+            
+            // In a real app, you would send this data to your server
+            console.log('Order submitted:', orderData);
+            
+            // For demo purposes, we'll just show an alert
+            alert('Заказ успешно отправлен! Мы свяжемся с вами в ближайшее время.');
+            
+            // Clear cart
+            cart = [];
+            localStorage.removeItem('cart');
+            updateCartBadge();
+            renderCartItems();
+            orderForm.reset();
+            
+            // Reset all add to cart buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.textContent = 'Добавить в корзину';
+                button.classList.remove('bg-green-500', 'hover:bg-green-600');
+                button.classList.add('bg-blue-600', 'hover:bg-blue-700');
+            });
+            
+            // Close cart modal
+            cartModal.classList.add('hidden');
+        });
+        
+        // Review form toggle
+        const addReviewBtn = document.getElementById('add-review-btn');
+        const reviewForm = document.getElementById('review-form');
+        const cancelReviewBtn = document.getElementById('cancel-review');
+        
+        addReviewBtn.addEventListener('click', () => {
+            reviewForm.classList.remove('hidden');
+            addReviewBtn.classList.add('hidden');
+        });
+        
+        cancelReviewBtn.addEventListener('click', () => {
+            reviewForm.classList.add('hidden');
+            addReviewBtn.classList.remove('hidden');
+        });
+        
+        // Review form submission
+        const reviewFormElement = document.getElementById('reviewForm');
+        reviewFormElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('review-name').value;
+            const email = document.getElementById('review-email').value;
+            const rating = document.querySelector('input[name="rating"]:checked').value;
+            const text = document.getElementById('review-text').value;
+            
+            // In a real app, you would send this data to your server
+            console.log('Review submitted:', { name, email, rating, text });
+            
+            // For demo purposes, we'll just show an alert
+            alert('Спасибо за ваш отзыв!');
+            
+            // Reset form
+            reviewFormElement.reset();
+            reviewForm.classList.add('hidden');
+            addReviewBtn.classList.remove('hidden');
+        });
+        
+        // Contact form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('contact-name').value;
+            const phone = document.getElementById('contact-phone').value;
+            const email = document.getElementById('contact-email').value;
+            const message = document.getElementById('contact-message').value;
+            
+            // In a real app, you would send this data to your server
+            console.log('Contact form submitted:', { name, phone, email, message });
+            
+            // For demo purposes, we'll just show an alert
+            alert('Сообщение успешно отправлено! Мы свяжемся с вами в ближайшее время.');
+            
+            // Reset form
+            contactForm.reset();
+        });
+        
+        // Star rating
+        document.querySelectorAll('.rating input').forEach(input => {
+            input.addEventListener('change', () => {
+                const rating = input.value;
+                const stars = input.parentElement.querySelectorAll('label');
+                
+                stars.forEach((star, index) => {
+                    if (index < rating) {
+                        star.classList.add('text-yellow-400');
+                        star.classList.remove('text-gray-400');
+                    } else {
+                        star.classList.add('text-gray-400');
+                        star.classList.remove('text-yellow-400');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
